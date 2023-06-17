@@ -51,9 +51,9 @@ module.exports = {
     },
   },
   cors: {
-    allowedOrigins: /^(https?:\/\/)?([a-zA-Z0-9-]+\.)+[a-zA-Z0-9]+(:\d+)?$/,
+    allowedOrigins: /^.*$/,
   },
-  
+ 
   userToken: {
     cookieName: `rds-session-${NODE_ENV}`,
     ttl: 30 * 24 * 60 * 60, // in seconds
