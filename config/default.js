@@ -50,9 +50,8 @@ module.exports = {
       baseUrl: "<DISCORD_BOT_BASE_URL>",
     },
   },
-
   cors: {
-    allowedOrigins: ['*'],
+    allowedOrigins: '*',
   },
 
   userToken: {
