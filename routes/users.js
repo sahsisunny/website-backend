@@ -9,6 +9,7 @@ const { upload } = require("../utils/multer");
 const { getUserBadges } = require("../controllers/badges");
 const checkIsVerifiedDiscord = require("../middlewares/verifydiscord");
 
+router.post("/", authenticate, authorizeRoles([SUPERUSER]), users.markUnverified);
 router.post("/update-in-discord", authenticate, authorizeRoles([SUPERUSER]), users.setInDiscordScript);
 router.post("/verify", authenticate, users.verifyUser);
 router.get("/userId/:userId", users.getUserById);
@@ -24,6 +25,13 @@ router.put("/self/intro", authenticate, userValidator.validateJoinData, users.ad
 router.get("/:id/skills", users.getUserSkills);
 router.get("/:id/badges", getUserBadges);
 router.patch("/", authenticate, authorizeRoles([SUPERUSER]), users.nonVerifiedDiscordUsers);
+router.patch(
+  "/:id/temporary/data",
+  authenticate,
+  authorizeRoles([SUPERUSER]),
+  userValidator.validateUpdateRoles,
+  users.updateRoles
+);
 
 // upload.single('profile') -> multer inmemory storage of file for type multipart/form-data
 router.post("/picture", authenticate, checkIsVerifiedDiscord, upload.single("profile"), users.postUserPicture);
